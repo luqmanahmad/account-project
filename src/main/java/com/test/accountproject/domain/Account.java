@@ -24,6 +24,9 @@ public class Account {
     @Column(name="accountNumber")
     private int accountNumber;
 
+    protected Account() {
+    }
+
     public Account(String firstName, String lastName, int accountNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
