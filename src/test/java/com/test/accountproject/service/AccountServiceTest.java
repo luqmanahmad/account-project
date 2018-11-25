@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 import org.junit.Before;
@@ -39,4 +41,16 @@ public class AccountServiceTest {
         assertThat(accounts.size() == 1);
     }
 
+    @Test
+    public void save() {
+        final Account account = new Account("Jason", "Simon", 123);
+
+        given(accountRepository.save(any())).willReturn(account);
+
+        Account savedAccount = accountService.save(account);
+
+        assertTrue(savedAccount != null);
+        assertThat(savedAccount.getFirstName().equals(account.getFirstName()));
+
+    }
 }
