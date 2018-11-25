@@ -22,4 +22,8 @@ public class AccountService {
         return StreamSupport.stream(accountRepository.findAll().spliterator(), false)
                             .collect(Collectors.toList());
     }
+
+    public Account save(Account account) {
+        return null;
+    }
 }

@@ -28,6 +28,8 @@ public class AccountController {
 
     @PostMapping(value = "/rest/account/json", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<String> createAccount(@RequestBody Account account) {
-        return ResponseEntity.ok().build();
+        accountService.save(account);
+
+        return ResponseEntity.ok("Account has been successfully added.");
     }
 }
