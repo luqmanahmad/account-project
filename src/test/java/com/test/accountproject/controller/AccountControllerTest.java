@@ -33,7 +33,7 @@ public class AccountControllerTest {
 
         given(accountService.getAccounts()).willReturn(Collections.singletonList(account));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/account/rest/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/rest/account/json"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].firstName").value("Jason"));
     }

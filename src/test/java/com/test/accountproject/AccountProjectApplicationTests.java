@@ -28,7 +28,7 @@ public class AccountProjectApplicationTests {
 
     @Test
     public void should_return_collection_of_accounts() {
-        ResponseEntity<Collection> response = testRestTemplate.getForEntity("/account/rest/json", Collection.class);
+        ResponseEntity<Collection> response = testRestTemplate.getForEntity("/rest/account/json", Collection.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 

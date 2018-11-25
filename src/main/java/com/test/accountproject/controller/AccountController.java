@@ -17,7 +17,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/account/rest/json")
+    @GetMapping("/rest/account/json")
     public Collection<Account> getAccounts() {
         return accountService.getAccounts();
     }
