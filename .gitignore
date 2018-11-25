@@ -1,0 +1,8 @@
+target/
+
+# IntelliJ files
+*.iml
+*.iws
+*.ipr
+.DS_Store
+.idea/
