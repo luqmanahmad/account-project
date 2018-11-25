@@ -35,6 +35,15 @@ public class AccountProjectApplicationTests {
         assertTrue(response.getBody().size() > 0);
     }
 
+    @Test
+    public void should_create_new_account() {
+        Account account = new Account("Jason", "Zinch", 123);
+
+        ResponseEntity<String> response = testRestTemplate.postForEntity("/rest/account/json", account, String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody().equals("Account has been successfully added."));
+    }
 }
 
 @Component
