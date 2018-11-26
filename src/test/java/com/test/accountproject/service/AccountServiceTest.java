@@ -2,6 +2,7 @@ package com.test.accountproject.service;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +10,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import org.junit.Before;
@@ -18,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.test.accountproject.domain.Account;
+import com.test.accountproject.exception.AccountNotFoundException;
 import com.test.accountproject.repository.AccountRepository;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -61,5 +64,11 @@ public class AccountServiceTest {
     public void delete() {
         accountService.delete(1L);
         verify(accountRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test(expected = AccountNotFoundException.class)
+    public void deleteAccount_NotFoundException() {
+        when(accountRepository.findById(anyLong())).thenReturn(Optional.empty());
+        accountService.delete(anyLong());
     }
 }
