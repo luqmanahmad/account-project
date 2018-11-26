@@ -55,4 +55,12 @@ public class AccountControllerTest {
                 .andExpect(MockMvcResultMatchers.content().string("Account has been successfully added."));
 
     }
+
+    @Test
+    public void should_delete_account() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Account successfully deleted"));
+
+    }
 }
