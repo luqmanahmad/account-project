@@ -59,7 +59,7 @@ public class AccountServiceTest {
 
     @Test
     public void delete() {
-        accountService.delete(anyLong());
+        accountService.delete(1L);
         verify(accountRepository, times(1)).deleteById(anyLong());
     }
 }
