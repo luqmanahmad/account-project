@@ -37,6 +37,7 @@ public class AccountController {
 
     @DeleteMapping("/rest/account/json/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable long id) {
-        return ResponseEntity.ok().build();
+        accountService.delete(id);
+        return ResponseEntity.ok("Account successfully deleted");
     }
 }
