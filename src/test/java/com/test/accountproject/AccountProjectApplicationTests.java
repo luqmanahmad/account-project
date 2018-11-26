@@ -44,6 +44,14 @@ public class AccountProjectApplicationTests {
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody().equals("Account has been successfully added."));
     }
+
+    @Test
+    public void should_delete_account() {
+        ResponseEntity<String> response = testRestTemplate.getForEntity("/rest/account/json/1", String.class);
+
+        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(response.getBody().equals("Account successfully deleted."));
+    }
 }
 
 @Component
