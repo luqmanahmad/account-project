@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -47,7 +49,10 @@ public class AccountProjectApplicationTests {
 
     @Test
     public void should_delete_account() {
-        ResponseEntity<String> response = testRestTemplate.getForEntity("/rest/account/json/1", String.class);
+        ResponseEntity<String> response = testRestTemplate.exchange("/rest/account/json/1",
+                                                         HttpMethod.DELETE,
+                                                         new HttpEntity<>("Account successfully deleted."),
+                                                         String.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(response.getBody().equals("Account successfully deleted."));
