@@ -62,7 +62,10 @@ public class AccountServiceTest {
 
     @Test
     public void delete() {
-        accountService.delete(1L);
+        final Account account = new Account("Jason", "Simon", 123);
+        when(accountRepository.findById(anyLong())).thenReturn(Optional.of(account));
+
+        accountService.delete(123);
         verify(accountRepository, times(1)).deleteById(anyLong());
     }
 
