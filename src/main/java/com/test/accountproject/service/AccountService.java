@@ -1,12 +1,14 @@
 package com.test.accountproject.service;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 
 import com.test.accountproject.domain.Account;
+import com.test.accountproject.exception.AccountNotFoundException;
 import com.test.accountproject.repository.AccountRepository;
 
 @Service
@@ -28,6 +30,12 @@ public class AccountService {
     }
 
     public void delete(long id) {
+        Optional<Account> account = accountRepository.findById(id);
+
+        if (!account.isPresent()) {
+            throw new AccountNotFoundException("Account not found for the given id = " + id);
+        }
+
         accountRepository.deleteById(id);
     }
 }

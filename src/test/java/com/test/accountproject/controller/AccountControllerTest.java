@@ -61,6 +61,5 @@ public class AccountControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Account successfully deleted"));
-
     }
 }
