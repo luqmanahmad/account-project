@@ -6,7 +6,10 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,5 +55,11 @@ public class AccountServiceTest {
         assertTrue(savedAccount != null);
         assertThat(savedAccount.getFirstName().equals(account.getFirstName()));
 
+    }
+
+    @Test
+    public void delete() {
+        accountService.delete(anyLong());
+        verify(accountRepository, times(1)).deleteById(anyLong());
     }
 }
