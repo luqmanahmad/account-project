@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.test.accountproject.domain.Account;
+import com.test.accountproject.enums.AccountStatus;
 import com.test.accountproject.repository.AccountRepository;
 
 @RunWith(SpringRunner.class)
@@ -46,18 +47,18 @@ public class AccountProjectE2ETests {
         ResponseEntity<String> response = testRestTemplate.postForEntity("/rest/account/json", account, String.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().equals("Account has been successfully added."));
+        Assertions.assertThat(response.getBody().equals("{\"message\":\"Account has been successfully added.}"));
     }
 
     @Test
     public void should_delete_account() {
         ResponseEntity<String> response = testRestTemplate.exchange("/rest/account/json/1",
                                                          HttpMethod.DELETE,
-                                                         new HttpEntity<>("Account successfully deleted."),
+                                                         new HttpEntity<>(AccountStatus.DELETE_SUCCESS),
                                                          String.class);
 
         Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().equals("Account successfully deleted."));
+        Assertions.assertThat(response.getBody().equals("{\"message\":\"Account successfully deleted}"));
     }
 }
 
