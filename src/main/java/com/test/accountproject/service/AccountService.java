@@ -37,6 +37,7 @@ public class AccountService {
         }
 
         accountRepository.deleteById(id);
-        return false;
+
+        return true;
     }
 }
