@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.accountproject.domain.Account;
+import com.test.accountproject.enums.AccountStatus;
 import com.test.accountproject.exception.AccountNotFoundException;
 import com.test.accountproject.service.AccountService;
 
@@ -33,10 +34,10 @@ public class AccountController {
     }
 
     @PostMapping(value = "/rest/account/json", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<String> createAccount(@RequestBody Account account) {
+    public ResponseEntity<AccountStatus> createAccount(@RequestBody Account account) {
         accountService.save(account);
 
-        return ResponseEntity.ok("Account has been successfully added.");
+        return ResponseEntity.ok(AccountStatus.CREATED);
     }
 
     @DeleteMapping("/rest/account/json/{id}")
