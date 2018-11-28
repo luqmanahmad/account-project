@@ -66,7 +66,10 @@ public class AccountServiceTest {
         final Account account = createJasonAccount();
         when(accountRepository.findById(anyLong())).thenReturn(Optional.of(account));
 
-        accountService.delete(123);
+        boolean success = accountService.delete(123);
+
+        assertTrue(success);
+
         verify(accountRepository, times(1)).deleteById(anyLong());
     }
 

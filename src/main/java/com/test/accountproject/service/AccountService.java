@@ -29,7 +29,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public void delete(long id) {
+    public boolean delete(long id) {
         Optional<Account> account = accountRepository.findById(id);
 
         if (!account.isPresent()) {
@@ -37,5 +37,6 @@ public class AccountService {
         }
 
         accountRepository.deleteById(id);
+        return false;
     }
 }
