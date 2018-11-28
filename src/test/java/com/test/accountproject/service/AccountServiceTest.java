@@ -22,7 +22,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.test.accountproject.domain.Account;
-import com.test.accountproject.exception.AccountNotFoundException;
 import com.test.accountproject.repository.AccountRepository;
 
 @RunWith(MockitoJUnitRunner.class)

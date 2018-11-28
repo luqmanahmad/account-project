@@ -8,7 +8,6 @@ import java.util.stream.StreamSupport;
 import org.springframework.stereotype.Service;
 
 import com.test.accountproject.domain.Account;
-import com.test.accountproject.exception.AccountNotFoundException;
 import com.test.accountproject.repository.AccountRepository;
 
 @Service
@@ -33,7 +32,7 @@ public class AccountService {
         Optional<Account> account = accountRepository.findById(id);
 
         if (!account.isPresent()) {
-            throw new AccountNotFoundException("Account not found for the given id = " + id);
+            return false;
         }
 
         accountRepository.deleteById(id);
