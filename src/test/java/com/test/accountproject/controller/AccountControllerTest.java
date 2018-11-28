@@ -62,6 +62,6 @@ public class AccountControllerTest {
     public void should_delete_account() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("message").value("Account successfully deleted"));
+                .andExpect(MockMvcResultMatchers.jsonPath("message").value("No account found"));
     }
 }

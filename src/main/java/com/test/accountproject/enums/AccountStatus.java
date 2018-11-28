@@ -7,7 +7,8 @@ import com.test.accountproject.serializer.AccountStatusSerializer;
 public enum AccountStatus {
 
     CREATED("Account has been successfully added."),
-    DELETE_SUCCESS("Account successfully deleted");
+    DELETE_SUCCESS("Account successfully deleted"),
+    DELETE_FAIL("No account found");
 
     private String message;
 
