@@ -20,7 +20,7 @@ public class AccountStatusSerializerTest {
         String json = objectMapper.writeValueAsString(AccountStatus.CREATED);
 
         assertEquals(
-                "{\"message\":{\"Account has been successfully added.\"}",
+                "{\"message\":\"Account has been successfully added.\"}",
                 json);
     }
 

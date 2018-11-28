@@ -8,8 +8,17 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.test.accountproject.enums.AccountStatus;
 
 public class AccountStatusSerializer extends JsonSerializer<AccountStatus> {
-    @Override
-    public void serialize(AccountStatus accountStatus, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
 
+    @Override
+    public void serialize(AccountStatus accountStatus, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+            throws IOException {
+        jsonGenerator.writeStartObject();
+
+        jsonGenerator.writeFieldName("message");
+        jsonGenerator.writeString(accountStatus.getMessage());
+
+        // end tag
+        jsonGenerator.writeEndObject();
     }
+
 }
