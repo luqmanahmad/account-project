@@ -6,7 +6,8 @@ import com.test.accountproject.serializer.AccountStatusSerializer;
 @JsonSerialize(using=AccountStatusSerializer.class)
 public enum AccountStatus {
 
-    CREATED("Account has been successfully added.");
+    CREATED("Account has been successfully added."),
+    DELETE_SUCCESS("Account successfully deleted");
 
     private String message;
 
