@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,7 +39,7 @@ public class AccountServiceTest {
 
     @Test
     public void getAccounts() {
-        final Account account = new Account("Jason", "Simon", 123);
+        final Account account = createJasonAccount();
 
         given(accountRepository.findAll()).willReturn(Collections.singletonList(account));
 
@@ -49,7 +50,7 @@ public class AccountServiceTest {
 
     @Test
     public void save() {
-        final Account account = new Account("Jason", "Simon", 123);
+        final Account account = createJasonAccount();
 
         given(accountRepository.save(any())).willReturn(account);
 
@@ -62,7 +63,7 @@ public class AccountServiceTest {
 
     @Test
     public void delete() {
-        final Account account = new Account("Jason", "Simon", 123);
+        final Account account = createJasonAccount();
         when(accountRepository.findById(anyLong())).thenReturn(Optional.of(account));
 
         accountService.delete(123);

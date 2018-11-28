@@ -1,6 +1,6 @@
 package com.test.accountproject.repository;
 
-import static org.junit.Assert.*;
+import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class AccountRepositoryTest {
 
     @Test
     public void findAll() {
-        Account account = new Account("Jason", "Simon", 123);
+        Account account = createJasonAccount();
 
         Account savedAccount = entityManager.persistAndFlush(account);
 

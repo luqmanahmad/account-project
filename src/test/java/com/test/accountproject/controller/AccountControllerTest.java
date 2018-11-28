@@ -2,6 +2,7 @@ package com.test.accountproject.controller;
 
 import java.util.Collections;
 
+import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -32,7 +33,7 @@ public class AccountControllerTest {
 
     @Test
     public void should_return_collection_of_accounts() throws Exception {
-        final Account account = new Account("Jason", "Simon", 123);
+        final Account account = createJasonAccount();
 
         given(accountService.getAccounts()).willReturn(Collections.singletonList(account));
 
@@ -43,7 +44,7 @@ public class AccountControllerTest {
 
     @Test
     public void should_create_new_account() throws Exception {
-        final Account account = new Account("Jason", "Simon", 123);
+        final Account account = createJasonAccount();
 
         when(accountService.save(account)).thenReturn(account);
 
@@ -53,7 +54,6 @@ public class AccountControllerTest {
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Account has been successfully added."));
-
     }
 
     @Test

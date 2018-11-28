@@ -2,6 +2,8 @@ package com.test.accountproject;
 
 import java.util.Collection;
 
+import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
+import static com.test.accountproject.helper.AccountTestDataHelper.createMultipleAccounts;
 import static org.junit.Assert.assertTrue;
 
 import org.assertj.core.api.Assertions;
@@ -23,7 +25,7 @@ import com.test.accountproject.repository.AccountRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class AccountProjectApplicationTests {
+public class AccountProjectE2ETests {
 
 	@Autowired
 	TestRestTemplate testRestTemplate;
@@ -39,7 +41,7 @@ public class AccountProjectApplicationTests {
 
     @Test
     public void should_create_new_account() {
-        Account account = new Account("Jason", "Zinch", 123);
+        Account account = createJasonAccount();
 
         ResponseEntity<String> response = testRestTemplate.postForEntity("/rest/account/json", account, String.class);
 
@@ -69,8 +71,6 @@ class TestDataCLR implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        accountRepository.save(new Account("Jason", "Zinch", 123));
-        accountRepository.save(new Account("Sam", "Lawrence", 1234));
-        accountRepository.save(new Account("Jon", "Holland", 12345));
+        createMultipleAccounts().forEach(account -> accountRepository.save(account));
     }
 }
