@@ -12,9 +12,7 @@ public class AccountStatusSerializerTest {
 
     @Test
     public void createStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new AccountStatusModule());
-
+        ObjectMapper objectMapper = getObjectMapper();
 
         String json = objectMapper.writeValueAsString(AccountStatus.CREATED);
 
@@ -25,9 +23,7 @@ public class AccountStatusSerializerTest {
 
     @Test
     public void deleteSuccessStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new AccountStatusModule());
-
+        ObjectMapper objectMapper = getObjectMapper();
 
         String json = objectMapper.writeValueAsString(AccountStatus.DELETE_SUCCESS);
 
@@ -38,9 +34,7 @@ public class AccountStatusSerializerTest {
 
     @Test
     public void deleteFailStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new AccountStatusModule());
-
+        ObjectMapper objectMapper = getObjectMapper();
 
         String json = objectMapper.writeValueAsString(AccountStatus.DELETE_FAIL);
 
@@ -49,6 +43,12 @@ public class AccountStatusSerializerTest {
                 json);
     }
 
+    private ObjectMapper getObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new AccountStatusModule());
+
+        return objectMapper;
+    }
 }
 
 class AccountStatusModule extends SimpleModule {
