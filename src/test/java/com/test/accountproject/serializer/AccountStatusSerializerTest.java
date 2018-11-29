@@ -11,7 +11,7 @@ import com.test.accountproject.enums.AccountStatus;
 public class AccountStatusSerializerTest {
 
     @Test
-    public void serialize() throws Exception {
+    public void createStatusSerialize() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new AccountStatusModule());
 
@@ -20,6 +20,32 @@ public class AccountStatusSerializerTest {
 
         assertEquals(
                 "{\"message\":\"Account has been successfully added.\"}",
+                json);
+    }
+
+    @Test
+    public void deleteSuccessStatusSerialize() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new AccountStatusModule());
+
+
+        String json = objectMapper.writeValueAsString(AccountStatus.DELETE_SUCCESS);
+
+        assertEquals(
+                "{\"message\":\"Account successfully deleted\"}",
+                json);
+    }
+
+    @Test
+    public void deleteFailStatusSerialize() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new AccountStatusModule());
+
+
+        String json = objectMapper.writeValueAsString(AccountStatus.DELETE_FAIL);
+
+        assertEquals(
+                "{\"message\":\"No account found\"}",
                 json);
     }
 

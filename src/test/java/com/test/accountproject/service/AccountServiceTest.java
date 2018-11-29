@@ -7,6 +7,7 @@ import java.util.Optional;
 import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -33,7 +34,7 @@ public class AccountServiceTest {
     private AccountRepository accountRepository;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         accountService = new AccountService(accountRepository);
     }
 
@@ -56,7 +57,7 @@ public class AccountServiceTest {
 
         Account savedAccount = accountService.save(account);
 
-        assertTrue(savedAccount != null);
+        assertNotNull(savedAccount);
         assertThat(savedAccount.getFirstName().equals(account.getFirstName()));
 
     }
@@ -74,7 +75,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void deleteNotSucces() {
+    public void deleteNotSuccess() {
         when(accountRepository.findById(anyLong())).thenReturn(Optional.empty());
         boolean success = accountService.delete(anyLong());
 

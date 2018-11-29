@@ -3,6 +3,7 @@ package com.test.accountproject.controller;
 import java.util.Collections;
 
 import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -58,6 +59,17 @@ public class AccountControllerTest {
 
     @Test
     public void should_delete_account() throws Exception {
+        when(accountService.delete(123)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("message").value("Account successfully deleted"));
+    }
+
+    @Test
+    public void should_not_delete_account() throws Exception {
+        when(accountService.delete(123)).thenReturn(false);
+
         mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("message").value("No account found"));
