@@ -2,6 +2,7 @@ package com.test.accountproject.serializer;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,44 +11,33 @@ import com.test.accountproject.enums.AccountStatus;
 
 public class AccountStatusSerializerTest {
 
+    private ObjectMapper objectMapper;
+
+    @Before
+    public void setUp() {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new AccountStatusModule());
+    }
+
     @Test
     public void createStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = getObjectMapper();
-
-        String json = objectMapper.writeValueAsString(AccountStatus.CREATED);
-
         assertEquals(
                 "{\"message\":\"Account has been successfully added.\"}",
-                json);
+                objectMapper.writeValueAsString(AccountStatus.CREATED));
     }
 
     @Test
     public void deleteSuccessStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = getObjectMapper();
-
-        String json = objectMapper.writeValueAsString(AccountStatus.DELETE_SUCCESS);
-
         assertEquals(
                 "{\"message\":\"Account successfully deleted\"}",
-                json);
+                objectMapper.writeValueAsString(AccountStatus.DELETE_SUCCESS));
     }
 
     @Test
     public void deleteFailStatusSerialize() throws Exception {
-        ObjectMapper objectMapper = getObjectMapper();
-
-        String json = objectMapper.writeValueAsString(AccountStatus.DELETE_FAIL);
-
         assertEquals(
                 "{\"message\":\"No account found\"}",
-                json);
-    }
-
-    private ObjectMapper getObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new AccountStatusModule());
-
-        return objectMapper;
+                objectMapper.writeValueAsString(AccountStatus.DELETE_FAIL));
     }
 }
 
