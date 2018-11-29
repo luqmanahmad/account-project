@@ -1,4 +1,4 @@
-package com.test.accountproject;
+package com.test.accountproject.serializer;
 
 import static org.junit.Assert.assertEquals;
 
@@ -7,7 +7,6 @@ import org.junit.Test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.test.accountproject.enums.AccountStatus;
-import com.test.accountproject.serializer.AccountStatusSerializer;
 
 public class AccountStatusSerializerTest {
 

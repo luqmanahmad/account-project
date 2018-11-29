@@ -48,8 +48,6 @@ public class AccountControllerTest {
 
         when(accountService.save(account)).thenReturn(account);
 
-        when(accountService.save(account)).thenReturn(account);
-
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/account/json")
                 .content(new ObjectMapper().writeValueAsString(account))
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
