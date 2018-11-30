@@ -2,11 +2,13 @@ package com.test.accountproject;
 
 import java.util.Collection;
 
+import static com.test.accountproject.enums.AccountStatus.CREATED;
+import static com.test.accountproject.enums.AccountStatus.DELETE_SUCCESS;
 import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
 import static com.test.accountproject.helper.AccountTestDataHelper.createMultipleAccounts;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class AccountProjectE2ETests {
     public void should_return_collection_of_accounts() {
         ResponseEntity<Collection> response = testRestTemplate.getForEntity("/rest/account/json", Collection.class);
 
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
         assertTrue(response.getBody().size() > 0);
     }
@@ -46,19 +48,23 @@ public class AccountProjectE2ETests {
 
         ResponseEntity<String> response = testRestTemplate.postForEntity("/rest/account/json", account, String.class);
 
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().equals("{\"message\":\"Account has been successfully added.}"));
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().equals(getExpectedMessage(CREATED)));
     }
 
     @Test
     public void should_delete_account() {
         ResponseEntity<String> response = testRestTemplate.exchange("/rest/account/json/1",
                                                          HttpMethod.DELETE,
-                                                         new HttpEntity<>(AccountStatus.DELETE_SUCCESS),
+                                                         new HttpEntity<>(DELETE_SUCCESS),
                                                          String.class);
 
-        Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        Assertions.assertThat(response.getBody().equals("{\"message\":\"Account successfully deleted}"));
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().equals(getExpectedMessage(DELETE_SUCCESS)));
+    }
+
+    private String getExpectedMessage(AccountStatus status) {
+        return "{\"message\":\"" + status.getMessage() + "\"}";
     }
 }
 
@@ -71,7 +77,7 @@ class TestDataCLR implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         createMultipleAccounts().forEach(account -> accountRepository.save(account));
     }
 }

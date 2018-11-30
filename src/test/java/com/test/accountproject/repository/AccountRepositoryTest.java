@@ -1,8 +1,8 @@
 package com.test.accountproject.repository;
 
 import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +30,6 @@ public class AccountRepositoryTest {
 
         Account retrievedAccount = accountRepository.findAll().iterator().next();
 
-        Assertions.assertThat(retrievedAccount.getFirstName()).isEqualTo(savedAccount.getFirstName());
+        assertThat(retrievedAccount.getFirstName()).isEqualTo(savedAccount.getFirstName());
     }
 }

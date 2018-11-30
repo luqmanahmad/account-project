@@ -2,8 +2,10 @@ package com.test.accountproject.controller;
 
 import java.util.Collections;
 
+import static com.test.accountproject.enums.AccountStatus.CREATED;
+import static com.test.accountproject.enums.AccountStatus.DELETE_FAIL;
+import static com.test.accountproject.enums.AccountStatus.DELETE_SUCCESS;
 import static com.test.accountproject.helper.AccountTestDataHelper.createJasonAccount;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -39,8 +41,10 @@ public class AccountControllerTest {
         given(accountService.getAccounts()).willReturn(Collections.singletonList(account));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/rest/account/json"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].firstName").value("Jason"));
+                .andExpect(MockMvcResultMatchers.status()
+                                                .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].firstName")
+                                                .value(account.getFirstName()));
     }
 
     @Test
@@ -53,8 +57,10 @@ public class AccountControllerTest {
                 .content(new ObjectMapper().writeValueAsString(account))
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("message").value("Account has been successfully added."));
+                .andExpect(MockMvcResultMatchers.status()
+                                                .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("message")
+                                                .value(CREATED.getMessage()));
     }
 
     @Test
@@ -62,8 +68,10 @@ public class AccountControllerTest {
         when(accountService.delete(123)).thenReturn(true);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("message").value("Account successfully deleted"));
+                .andExpect(MockMvcResultMatchers.status()
+                                                .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("message")
+                                                .value(DELETE_SUCCESS.getMessage()));
     }
 
     @Test
@@ -71,7 +79,9 @@ public class AccountControllerTest {
         when(accountService.delete(123)).thenReturn(false);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/rest/account/json/123"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("message").value("No account found"));
+                .andExpect(MockMvcResultMatchers.status()
+                                                .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("message")
+                                                .value(DELETE_FAIL.getMessage()));
     }
 }

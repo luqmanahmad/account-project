@@ -1,5 +1,8 @@
 package com.test.accountproject.serializer;
 
+import static com.test.accountproject.enums.AccountStatus.CREATED;
+import static com.test.accountproject.enums.AccountStatus.DELETE_FAIL;
+import static com.test.accountproject.enums.AccountStatus.DELETE_SUCCESS;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -22,22 +25,26 @@ public class AccountStatusSerializerTest {
     @Test
     public void createStatusSerialize() throws Exception {
         assertEquals(
-                "{\"message\":\"Account has been successfully added.\"}",
-                objectMapper.writeValueAsString(AccountStatus.CREATED));
+                getExpectedMessage(CREATED),
+                objectMapper.writeValueAsString(CREATED));
     }
 
     @Test
     public void deleteSuccessStatusSerialize() throws Exception {
         assertEquals(
-                "{\"message\":\"Account successfully deleted\"}",
-                objectMapper.writeValueAsString(AccountStatus.DELETE_SUCCESS));
+                getExpectedMessage(DELETE_SUCCESS),
+                objectMapper.writeValueAsString(DELETE_SUCCESS));
     }
 
     @Test
     public void deleteFailStatusSerialize() throws Exception {
         assertEquals(
-                "{\"message\":\"No account found\"}",
-                objectMapper.writeValueAsString(AccountStatus.DELETE_FAIL));
+                getExpectedMessage(DELETE_FAIL),
+                objectMapper.writeValueAsString(DELETE_FAIL));
+    }
+
+    private String getExpectedMessage(AccountStatus status) {
+        return "{\"message\":\"" + status.getMessage() + "\"}";
     }
 }
 
